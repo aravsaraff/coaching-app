@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useLocalStore, useObserver } from 'mobx-react';
+import StoreContext from './StoreContext';
+import './App.scss';
+
+const StoreProvider = ({ children }) => {
+	const store = useLocalStore(() => ({
+		// Add some app level state here
+	}));
+
+	return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
+};
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<StoreProvider>
+			<div className='App'>Hello, world!</div>
+		</StoreProvider>
+	);
 }
 
 export default App;
