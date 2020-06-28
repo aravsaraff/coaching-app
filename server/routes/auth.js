@@ -4,6 +4,8 @@ const crypto = require('crypto');
 const path = require('path');
 const axios = require('axios');
 
+const RECAPTCHA_SECRET = '6LeoraoZAAAAABjN20iYRPLkjPEc-Vm6CgcM7jQf';
+
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 module.exports = (passport) => {
@@ -11,6 +13,15 @@ module.exports = (passport) => {
 
 	exp.register = async (req, res) => {
 		try {
+			console.log(req.body.token);
+			let captchaResp = await axios.post('https://www.google.com/recaptcha/api/siteverify', null, {
+				params: {
+					secret: RECAPTCHA_SECRET,
+					response: req.body.token
+				}
+			});
+			console.log(captchaResp.data);
+			if (captchaResp.success === false) return res.status(500).send('Captcha failed');
 			let userExists = await db.user.findOne({
 				where: { email: req.body.email }
 			});

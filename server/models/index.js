@@ -30,10 +30,10 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.course = require('./course.js')(sequelize, Sequelize);
-db.institute = require('./institute.js')(sequelize,Sequelize);
+db.institute = require('./institute.js')(sequelize, Sequelize);
 db.subject = require('./subject.js')(sequelize, Sequelize);
 db.topic = require('./topic.js')(sequelize, Sequelize);
-db.user = require('./user.js')(sequelize,Sequelize);
+db.user = require('./user.js')(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
 	if(db[modelName].associate) db[modelName].associate(db);

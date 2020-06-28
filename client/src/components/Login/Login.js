@@ -10,10 +10,14 @@ Axios.defaults.baseURL = process.env.REACT_APP_SERVER;
 export default function Login() {
 	const { register, handleSubmit, errors } = useForm();
 	const onSubmit = async (data) => {
-		console.log(data);
-		let resp = await Axios.post('/login', data);
-		if (resp.status === 200) {
-			window.location.href = '/';
+		try {
+			console.log(data);
+			let resp = await Axios.post('/login', data);
+			if (resp.status === 200) {
+				window.location.href = '/';
+			}
+		} catch (err) {
+			console.log(err);
 		}
 	};
 	console.log(errors);
