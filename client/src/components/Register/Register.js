@@ -30,9 +30,9 @@ export default function Register() {
 					ref={register({ required: true, maxLength: 100 })}
 				/>
 				<input type='text' placeholder='Email' name='email' ref={register({ required: true, pattern: /^\S+@\S+$/i })} />
-				<input type='text' placeholder='Password' name='password' ref={register({ required: true, minLength: 8 })} />
+				<input type='password' placeholder='Password' name='password' ref={register({ required: true, minLength: 8 })} />
 				<input
-					type='text'
+					type='password'
 					placeholder='Confirm Password'
 					name='password_confirmation'
 					ref={register({
