@@ -5,6 +5,7 @@ const passport = require('passport');
 const express = require('express');
 const routes = require('./routes')
 const cors = require('cors');
+const models = require('./models');
 require('dotenv').config();
 
 const app = express();
@@ -22,6 +23,16 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use('/', routes);
+const port = process.env.PORT || 8888;
 
-console.log('Listening on 8888.');
-app.listen(8888);
+models.sequelize.sync().then(
+	()=>{
+		app.listen(port,err=>{
+			console.log(err || `Listening on ${port}`);
+		});
+	},
+	err => {
+		console.log('DB Connection failed');
+		console.log(err);
+	}
+);
