@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
 module.exports = (passport) => {
-    const auth = require('auth')(passport);
-    const admin = require('admin')(passport);
+    const auth = require('./auth')(passport);
+    // const admin = require('./admin')(passport);
 
     //auth routes
     router.post('/register', auth.register);

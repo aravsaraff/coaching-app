@@ -1,0 +1,21 @@
+@import '../variables.scss';
+
+.nav-container {
+  display: flex;
+  flex-direction: row;
+  flex: 0 1 auto;
+  height: 48px;
+  width: 100vw;
+  background: $bg2;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav-logo {
+  height: 35px;
+}
+
+.nav-login-btn, .nav-register-btn {
+  font-size: 17px;
+  color: $bg;
+}

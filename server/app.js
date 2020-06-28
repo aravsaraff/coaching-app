@@ -5,19 +5,18 @@ const passport = require('passport');
 const cors = require('cors');
 const express = require('express');
 
-const routes = require('./routes')
+const routes = require('./routes')(passport);
 const models = require('./models');
 const redisStore = require('./config/redis')(session);
 
 require('dotenv').config();
-require('./config/passport')(passport);
 
 const app = express();
 
 const sess = session({
 	resave: false,
 	saveUninitialized: false,
-	secret: process.env.SESS_KEY,
+	secret: 'process.env.SESS_KEY',
 	store: redisStore,
 	cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 }
 });
@@ -30,22 +29,25 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(sess);
+
 app.use(passport.initialize());
 app.use(passport.session());
+require('./config/passport')(passport);
+
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/', routes)(passport);
+app.use('/', routes);
 const port = process.env.PORT || 8888;
 
 models.sequelize.sync().then(
-	()=>{
-		app.listen(port,err=>{
+	() => {
+		app.listen(port, (err) => {
 			console.log(err || `Listening on ${port}`);
 		});
 	},
-	err => {
+	(err) => {
 		console.log('DB Connection failed');
 		console.log(err);
 	}

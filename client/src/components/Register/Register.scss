@@ -1,0 +1,38 @@
+@import '../variables.scss';
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: center;
+  align-items: center;
+  background: $bg;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  width: 350px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 2px 5px lightgray;
+
+  input {
+    margin-bottom: 15px;
+  }
+
+  .submit-btn {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+}
+

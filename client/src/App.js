@@ -1,6 +1,8 @@
 import React from 'react';
-import { useLocalStore, useObserver } from 'mobx-react';
+import { useLocalStore } from 'mobx-react';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import StoreContext from './StoreContext';
+import { Home, Header, Register, Login } from './components';
 import './App.scss';
 
 const StoreProvider = ({ children }) => {
@@ -14,7 +16,16 @@ const StoreProvider = ({ children }) => {
 function App() {
 	return (
 		<StoreProvider>
-			<div className='App'>Hello, world!</div>
+			<Router>
+				<div className='App'>
+					<Header />
+					<Switch>
+						<Route exact path='/' component={Home} />
+						<Route path='/register' component={Register} />
+						<Route path='/login' component={Login} />
+					</Switch>
+				</div>
+			</Router>
 		</StoreProvider>
 	);
 }

@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
             },
             cust_id: {
                 type: DataTypes.STRING(50),
-                allowNull: false
+                allowNull: true
             },
             access: {
                 type: DataTypes. INTEGER,
