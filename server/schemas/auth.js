@@ -24,7 +24,9 @@ const register = Joi.object({
             .required().trim(),
         phone: Joi.string()
             .max(12)
-            .required().trim()
+            .required().trim(),
+        token: Joi.string()
+            .required()
     }).required()
 });
 
