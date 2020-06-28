@@ -33,21 +33,21 @@ module.exports = (sequelize, DataTypes) => {
     Course.associate = (models)=>{
         models.course.belongsTo(models.institute, {
             as: 'institute',
-            foreingKey: {
+            foreignKey: {
                 name: 'institute_id',
                 allowNull: false
             }
         });
         models.course.hasMany(models.subject,{
             as: 'subjects',
-            foreingKey: {
+            foreignKey: {
                 name: 'course_id',
                 allowNull: false
             }
         });
         models.course.belongsToMany(models.user,{
             through: 'courses_paid',
-            foreingKey: 'course_id'
+            foreignKey: 'course_id'
         });
     };
     return Course;

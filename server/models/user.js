@@ -50,10 +50,10 @@ module.exports = (sequelize, DataTypes) => {
         }
     );
 
-    User.associate = (models)=>{
+    User.associate = (models) => {
         models.user.belongsToMany(models.course,{
             through: 'courses_paid',
-            foreingKey: 'user_id'
+            foreignKey: 'user_id'
         });
     };
     return User;
