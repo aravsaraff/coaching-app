@@ -31,13 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Course.associate = (models)=>{
-        models.course.belongsTo(models.institute, {
-            as: 'institute',
-            foreignKey: {
-                name: 'institute_id',
-                allowNull: false
-            }
-        });
         models.course.hasMany(models.subject,{
             as: 'subjects',
             foreignKey: {

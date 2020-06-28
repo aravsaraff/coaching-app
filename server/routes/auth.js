@@ -7,7 +7,15 @@ const axios = require('axios');
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 module.exports = (passport) => {
-	let exp = {};
+    let exp = {};
+    
+    exp.ensure = (req, res, next) => {
+        if (req.isAuthenticated()) {
+			return next();
+		}
+		console.log('Not logged in.');
+		res.status(401).send('Not logged in.');
+    }
 
 	exp.register = async (req, res) => {
 		try {
@@ -46,8 +54,8 @@ module.exports = (passport) => {
 			if (!check) return res.status(401).send('Invalid email or password');
 			req.login(user, (err) => {
 				if (err) res.status(401).send(err);
-				console.log('Success');
-				return res.status(200).send('Login successful');
+				console.log('Login success');
+				return res.status(200).send(user);
 			});
 		} catch (err) {
 			console.log(err);
