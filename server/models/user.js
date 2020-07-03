@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
             access: {
                 type: DataTypes. INTEGER,
                 allowNull: false,
-                defaultValue: 3
+                defaultValue: 1
             }
         },
         {

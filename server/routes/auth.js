@@ -16,7 +16,7 @@ module.exports = (passport) => {
 			return next();
 		}
 		console.log('Not logged in.');
-		res.status(401).send('Not logged in.');
+		return res.status(401).send('Not logged in.');
     }
 
 	exp.register = async (req, res) => {
