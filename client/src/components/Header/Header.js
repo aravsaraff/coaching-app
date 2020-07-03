@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, Button, Popover, Menu, Position } from 'evergreen-ui';
 import StoreContext from '../../StoreContext';
+import { useObserver } from 'mobx-react';
 import { banner } from '../../assets';
 import './Header.scss';
 import Axios from 'axios';
@@ -17,6 +18,7 @@ export default function Header() {
 		try {
 			await Axios.get('/logout');
 			localStorage.removeItem('isSignedIn');
+			localStorage.removeItem('nameState');
 			window.location.href = '/login';
 		} catch (err) {
 			console.log(err);
@@ -72,10 +74,10 @@ export default function Header() {
 		}
 	};
 
-	return (
+	return useObserver(() => (
 		<div className='nav-container'>
 			<img src={banner} className='nav-logo' alt='banner' />
 			{navRender()}
 		</div>
-	);
+	));
 }

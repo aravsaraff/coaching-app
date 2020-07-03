@@ -2,6 +2,7 @@ import React from 'react';
 import Axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Pane, TextInputField, Button, Text, Link } from 'evergreen-ui';
+import StoreContext from '../../StoreContext';
 import './Login.scss';
 
 // Axios config
@@ -9,12 +10,18 @@ Axios.defaults.baseURL = process.env.REACT_APP_SERVER;
 
 export default function Login() {
 	const { register, handleSubmit, errors } = useForm();
+	const store = React.useContext(StoreContext);
+
 	const onSubmit = async (data) => {
 		try {
 			console.log(data);
 			let resp = await Axios.post('/login', data);
 			if (resp.status === 200) {
 				localStorage.setItem('isSignedIn', true);
+				// console.log(resp.data);
+				const name = resp.data.first_name + ' ' + resp.data.last_name;
+				store.changeName(name);
+				localStorage.setItem('nameState', name);
 				window.location.href = '/';
 			}
 		} catch (err) {

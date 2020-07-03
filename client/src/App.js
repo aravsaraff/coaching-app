@@ -8,7 +8,10 @@ import './App.scss';
 const StoreProvider = ({ children }) => {
 	const store = useLocalStore(() => ({
 		// Add some app level state here
-		name: 'John Doe'
+		name: localStorage.getItem('nameState'),
+		changeName: (name) => {
+			store.name = name;
+		}
 	}));
 
 	return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
