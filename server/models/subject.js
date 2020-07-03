@@ -18,10 +18,6 @@ module.exports = (sequelize, DataTypes) => {
             desc: {
                 type: DataTypes.STRING,
                 allowNull: false
-            },
-            teacher: {
-                type: DataTypes.STRING(50),
-                allowNull: false
             }
         },
         {
@@ -35,6 +31,13 @@ module.exports = (sequelize, DataTypes) => {
             as: 'course',
             foreignKey: {
                 name: 'course_id',
+                allowNull: false
+            }
+        });
+        models.subject.belongsTo(models.user,{
+            as: 'teacher',
+            foreignKey: {
+                name: 'teacher_id',
                 allowNull: false
             }
         });

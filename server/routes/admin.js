@@ -17,6 +17,7 @@ module.exports = () => {
 
     exp.addsubject = async (req, res) => {
         try {
+            req.body.teacher_id = req.user.id;
             const subjectobj = await subject.create(req.body);
             return res.status(200).send(subjectobj);
         } catch (err) {

@@ -13,7 +13,6 @@ const addsubject = Joi.object({
 	body: Joi.object({
 		name: Joi.string().min(5).max(30).required().trim(),
 		desc: Joi.string().min(5).required().trim(),
-		teacher: Joi.string().max(50).required().trim(),
 		course_id: Joi.number().integer().required()
 	}).required()
 });

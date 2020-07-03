@@ -6,12 +6,12 @@ module.exports = (passport) => {
 	const admin = require('./admin')();
 	const user = require('./user')();
 
-	//auth routes
+	// auth routes
 	router.post('/register', schemas.validator(schemas.auth.register), auth.register);
 	router.post('/login', schemas.validator(schemas.auth.login), auth.login);
 	router.get('/logout', auth.logout);
 
-	//admin routes
+	// admin routes
 	router.post('/addcourse', auth.ensure, auth.access(2), schemas.validator(schemas.admin.addcourse), admin.addcourse);
 	router.post(
 		'/addsubject',
@@ -21,8 +21,9 @@ module.exports = (passport) => {
 		admin.addsubject
 	);
 
-	//user routes
+	// user routes
 	router.get('/getCourses', auth.ensure, user.viewcourses);
+	router.get('/paidcourses', auth.ensure, user.viewpaidcourses);
 
 	return router;
 };
