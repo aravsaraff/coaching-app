@@ -24,9 +24,6 @@ const addsubject = Joi.object({
         desc: Joi.string()
             .min(5)
             .required().trim(),
-        teacher: Joi.string()
-            .max(50)
-            .required().trim(),
         course_id: Joi.number()
             .integer()
             .required()

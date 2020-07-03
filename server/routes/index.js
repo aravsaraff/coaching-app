@@ -12,11 +12,12 @@ module.exports = (passport) => {
     router.post('/logout', auth.logout);
 
     //admin routes
-    router.post('/addcourse', auth.ensure, auth.access(2), schemas.validator(schemas.admin.addcourse), admin.addcourse);
+    router.post('/addcourse', auth.ensure, auth.access(3), schemas.validator(schemas.admin.addcourse), admin.addcourse);
     router.post('/addsubject',auth.ensure, auth.access(2), schemas.validator(schemas.admin.addsubject), admin.addsubject);
 
     //user routes
     router.get('/courses',auth.ensure,user.viewcourses);
+    router.get('/paidcourses',auth.ensure,user.viewpaidcourses);
 
     return router;
 }

@@ -1,5 +1,5 @@
 const { course, Sequelize } = require('../models');
-
+const { user } =require('../models');
 
 module.exports = () => {
     let exp = {};
@@ -17,6 +17,23 @@ module.exports = () => {
                 }
             });
             return res.status(200).send(courses);
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send(err);
+        }
+    }
+
+    exp.viewpaidcourses = async (req, res) => {
+        try{
+            const paidcourses = await user.findByPk(req.user.id,{
+                attributes: [ ],
+                include: [
+                    {
+                        model: course
+                    }
+                ]
+            });
+            return res.status(200).send(paidcourses.courses);
         } catch (err) {
             console.log(err);
             return res.status(500).send(err);
