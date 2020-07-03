@@ -8,7 +8,7 @@ const RECAPTCHA_SECRET = '6LeoraoZAAAAABjN20iYRPLkjPEc-Vm6CgcM7jQf';
 
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
-module.exports = (passport) => {
+module.exports = () => {
     let exp = {};
     
     exp.ensure = (req, res, next) => {
@@ -17,7 +17,13 @@ module.exports = (passport) => {
 		}
 		console.log('Not logged in.');
 		return res.status(401).send('Not logged in.');
-    }
+	}
+	
+	exp.access = level => (req, res, next) => {
+		if (req.user && req.user.access >= level)
+			return next();
+		return res.status(403).send('Access Forbidden');
+	}
 
 	exp.register = async (req, res) => {
 		try {
