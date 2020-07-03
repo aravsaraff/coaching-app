@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/lazy';
 import { pdfjs, Document, Page } from 'react-pdf';
 import { Avatar } from 'evergreen-ui';
 import sample from './sample.pdf';
@@ -20,11 +20,11 @@ export default function Course() {
 					controls={true}
 					width='100%'
 					height='100%'
-					config={{
-						file: {
-							forceVideo: true
-						}
-					}}
+					// config={{
+					// 	file: {
+					// 		forceVideo: true
+					// 	}
+					// }}
 				/>
 			</div>
 			<div className='material-container'>
@@ -34,8 +34,8 @@ export default function Course() {
 				</div>
 				<div className='content'>
 					<Document className='pdf' file={sample}>
-						<Page pageNumber={1} scale='1' renderAnnotationLayer='false' />
-						<Page pageNumber={2} scale='1' renderAnnotationLayer='false' />
+						<Page pageNumber={1} scale={1} renderAnnotationLayer={false} />
+						<Page pageNumber={2} scale={1} renderAnnotationLayer={false} />
 					</Document>
 				</div>
 			</div>

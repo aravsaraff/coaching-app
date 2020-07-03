@@ -22,7 +22,7 @@ const sess = session({
 });
 
 const corsOptions = {
-	origin: 'http://127.0.0.1:3000',
+	origin: 'http://localhost:3000',
 	optionsSuccessStatus: 200,
 	credentials: true // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
