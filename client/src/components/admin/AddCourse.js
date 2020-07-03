@@ -13,7 +13,7 @@ export default function AddCourse() {
 
 	const onSubmit = async (data) => {
 		try {
-			// data.image = file;
+			data.image = file;
 			console.log(data);
 			const resp = await Axios.post('/addcourse', data);
 			if (resp.status === 200) {

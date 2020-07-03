@@ -26,5 +26,6 @@ PORT=
 
 ```
 REACT_APP_SERVER=
+
 REACT_APP_DOMAIN=
 ```
