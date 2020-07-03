@@ -1,21 +1,29 @@
 @import '../variables.scss';
 
 .nav-container {
-  display: flex;
-  flex-direction: row;
-  flex: 0 1 auto;
-  height: 48px;
-  width: 100vw;
-  background: $bg2;
-  justify-content: space-around;
-  align-items: center;
+	display: flex;
+	flex-direction: row;
+	flex: 0 0 auto;
+	height: 48px;
+	background: $bgDark;
+	color: $textLight;
+	justify-content: space-around;
+	align-items: center;
 }
 
 .nav-logo {
-  height: 35px;
+	height: 38px;
 }
 
-.nav-login-btn, .nav-register-btn {
-  font-size: 17px;
-  color: $bg;
+.nav-btns {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.nav-login-btn,
+.nav-register-btn,
+.nav-courses-btn {
+	font-size: 16px;
+	color: $textLight;
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import Axios from 'axios';
 import { useForm } from 'react-hook-form';
-import StoreContext from '../../StoreContext';
+import { Pane, TextInputField, Button, Text, Link } from 'evergreen-ui';
 import './Login.scss';
 
-//Axios config
+// Axios config
 Axios.defaults.baseURL = process.env.REACT_APP_SERVER;
 
 export default function Login() {
@@ -14,6 +14,7 @@ export default function Login() {
 			console.log(data);
 			let resp = await Axios.post('/login', data);
 			if (resp.status === 200) {
+				localStorage.setItem('isSignedIn', true);
 				window.location.href = '/';
 			}
 		} catch (err) {
@@ -24,12 +25,41 @@ export default function Login() {
 
 	return (
 		<div className='login-container'>
-			<form className='login-form' onSubmit={handleSubmit(onSubmit)}>
-				<input type='text' placeholder='Email' name='email' ref={register({ required: true, pattern: /^\S+@\S+$/i })} />
-				<input type='text' placeholder='Password' name='password' ref={register({ required: true })} />
-
-				<input className='submit-btn' type='submit' />
-			</form>
+			<Pane className='login-pane' elevation={1}>
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<h2>Login to Coaching App</h2>
+					<TextInputField
+						required
+						name='email'
+						label='Email'
+						inputHeight={30}
+						inputWidth={250}
+						innerRef={register({
+							// required: true,
+							pattern: { value: /^\S+@\S+$/i, message: 'Please enter a valid email.' }
+						})}
+					/>
+					{errors.email && <p className='form-error'>{errors.email.message}</p>}
+					<TextInputField
+						required
+						type='password'
+						name='password'
+						label='Password'
+						inputHeight={30}
+						inputWidth={250}
+						innerRef={register({
+							// required: true,
+						})}
+					/>
+					{errors.password && <p className='form-error'>{errors.password.message}</p>}
+					<Button type='submit' appearance='primary'>
+						Login
+					</Button>
+					<Text marginTop={24} marginBottom={8} display='block' textAlign='center'>
+						Forgot your password? <Link color='blue'>Reset your password</Link>
+					</Text>
+				</form>
+			</Pane>
 		</div>
 	);
 }

@@ -1,0 +1,29 @@
+@import '../variables.scss';
+
+.courses-container {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	background: $bgLight;
+
+	.header {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		margin-top: 20px;
+
+		.bought {
+			display: flex;
+			flex-direction: row;
+		}
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.courses-container {
+		.header {
+			flex-direction: column;
+		}
+	}
+}

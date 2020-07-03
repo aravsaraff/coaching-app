@@ -5,6 +5,7 @@ A CMS for video lectures and study material.
 ## .ENV Details
 
 ### `Server`
+
 ```
 DB_USER=
 
@@ -22,6 +23,8 @@ PORT=
 ---
 
 ### `Client`
+
 ```
 REACT_APP_SERVER=
+REACT_APP_DOMAIN=
 ```
