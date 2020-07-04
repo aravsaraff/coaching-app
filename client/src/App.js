@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocalStore } from 'mobx-react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import StoreContext from './StoreContext';
-import { Home, Header, Register, Login, Courses, Course, AddCourse } from './components';
+import { Home, Header, Register, Login, Courses, Course, AddCourse, BuyCourse } from './components';
 import './App.scss';
 
 const StoreProvider = ({ children }) => {
@@ -29,7 +29,7 @@ function App() {
 						<Route path='/login' component={Login} />
 						<Route path='/courses' component={Courses} />
 						<Route path='/course' component={Course} />
-
+						<Route path='/buyCourse' component={BuyCourse} />
 						<Route path='/addCourse' component={AddCourse} />
 					</Switch>
 				</div>

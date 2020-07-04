@@ -33,6 +33,7 @@ db.course = require('./course.js')(sequelize, Sequelize);
 db.subject = require('./subject.js')(sequelize, Sequelize);
 db.topic = require('./topic.js')(sequelize, Sequelize);
 db.user = require('./user.js')(sequelize, Sequelize);
+db.paid_course = require('./paid_course.js')(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
 	if(db[modelName].associate) db[modelName].associate(db);

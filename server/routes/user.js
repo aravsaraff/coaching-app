@@ -1,4 +1,4 @@
-const { course, Sequelize } = require('../models');
+const { course, paid_course, Sequelize } = require('../models');
 const { user } = require('../models');
 
 module.exports = () => {
@@ -26,14 +26,23 @@ module.exports = () => {
 
 	exp.viewpaidcourses = async (req, res) => {
 		try {
-			const paidcourses = await user.findByPk(req.user.id, {
-				attributes: [],
+			// const paidcourses = await user.findByPk(req.user.id, {
+			// 	attributes: [],
+			// 	include: [
+			// 		{
+			// 			model: course
+			// 		}
+			// 	]
+			// });
+			let paidcourses = await paid_course.findAll({
+				where: {
+					user_id: req.user.id,
+					txn_status: 'TXN_SUCCESS'
+				},
 				include: [
-					{
-						model: course
-					}
+					{ model: course }
 				]
-			});
+			})
 			return res.status(200).send(paidcourses.courses);
 		} catch (err) {
 			console.log(err);

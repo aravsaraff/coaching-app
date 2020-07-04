@@ -36,7 +36,8 @@ module.exports = (sequelize, DataTypes) => {
             },
             cust_id: {
                 type: DataTypes.STRING(50),
-                allowNull: true
+                allowNull: true,
+                defaultValue: null
             },
             access: {
                 type: DataTypes. INTEGER,
@@ -59,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         });
         models.user.belongsToMany(models.course,{
-            through: 'courses_paid',
+            through: 'paid_course',
             foreignKey: 'user_id'
         });
     };
