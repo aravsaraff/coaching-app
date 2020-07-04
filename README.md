@@ -18,6 +18,10 @@ DB_PASS=
 SESS_KEY=
 
 PORT=
+
+MERCH_ID=
+
+MERCH_KEY=
 ```
 
 ---
