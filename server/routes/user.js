@@ -26,21 +26,17 @@ module.exports = () => {
 
 	exp.viewpaidcourses = async (req, res) => {
 		try {
-			// const paidcourses = await user.findByPk(req.user.id, {
-			// 	attributes: [],
-			// 	include: [
-			// 		{
-			// 			model: course
-			// 		}
-			// 	]
-			// });
-			let paidcourses = await paid_course.findAll({
-				where: {
-					user_id: req.user.id,
-					txn_status: 'TXN_SUCCESS'
-				},
+			let paidcourses = await user.findByPk(req.user.id,{
+				attributes: [],
 				include: [
-					{ model: course }
+					{
+						model: course,
+						through: {
+							where: {
+								txn_status: 'TXN_SUCCESS'
+							}
+						}
+					}
 				]
 			})
 			return res.status(200).send(paidcourses.courses);
