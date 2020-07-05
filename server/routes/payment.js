@@ -14,8 +14,10 @@ module.exports = () => {
                     course_id: req.body.course_id
                 }
             });
-            if(bought)
+            if(bought && bought.txn_status == 'TXN_SUCCESS')
                 return res.status(400).send('Course already bought');
+            if(bought && bought.txn_status == 'PENDING')
+                return res.status(400).send('Waiting for Payment Confirmation');
             let courseObj = await course.findOne({
                 where: { id: req.body.course_id }
             });
@@ -23,20 +25,9 @@ module.exports = () => {
                 return res.status(400).send('Course does not exist');
             let orderId = uuid();
             console.log('Order id generated: ' + orderId);
-            let userObj = await user.findOne({
-                where: {id: req.user.id }
-            });
-            if(!userObj.cust_id){
-                let custId = uuid();
-                await user.update({cust_id: custId}, {
-                    where: {id: userObj.id}
-                });
-                userObj.cust_id = custId;
-                console.log('Cust id generated: ' + userObj.cust_id);
-            }
-            let paymentObj = await paid_course.create({
+            let paymentObj = await paid_course.upsert({
                 course_id: courseObj.id,
-                user_id: userObj.id,
+                user_id: req.user.id,
                 order_id: orderId,
                 txn_status: 'INITIATED'
             });
@@ -46,11 +37,11 @@ module.exports = () => {
                 'INDUSTRY_TYPE_ID': 'Retail',
                 'CHANNEL_ID': 'WEB',
                 'ORDER_ID': orderId,
-                'CUST_ID': userObj.cust_id,
-                'MOBILE_NO': userObj.phone,
-                'EMAIL': userObj.email,
+                'CUST_ID': req.user.cust_id,
+                'MOBILE_NO': req.user.phone,
+                'EMAIL': req.user.email,
                 'TXN_AMOUNT': courseObj.price,
-                'CALLBACK_URL': 'http://localhost:8888/paytmresponse'
+                'CALLBACK_URL': 'http://localhost:5000/paytmresponse'
             };
             paytmChecksum.genchecksum(paytmParams, process.env.MERCH_KEY, (err, checksum) => {
                 console.log("Checksum generated: " + checksum);
@@ -62,8 +53,8 @@ module.exports = () => {
                 let html = '<html><head><title>Course Payment Checkout</title></head><body><center><h1>Payment is being processed. Please do not refresh or leave page</h1></center><form method="post" action="' + url + '" name="paytm">' + form + '</form><script type="text/javascript">document.paytm.submit();</script></body></html>';
                 res.writeHead(200, {'Content-Type': 'text/html'});
                 res.write(html);
+                return res.end();
             });
-            return res.end();
         } catch (err) {
             console.log(err);
             return res.status(500).send(err);

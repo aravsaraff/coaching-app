@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const path = require('path');
 const axios = require('axios');
+const uuid = require('uuid/v4');
 
 const RECAPTCHA_SECRET = '6LeoraoZAAAAABjN20iYRPLkjPEc-Vm6CgcM7jQf';
 
@@ -49,7 +50,7 @@ module.exports = () => {
 				email: req.body.email,
 				password: hash,
 				phone: req.body.phone,
-				cust_id: null,
+				cust_id: uuid(),
 				access: 1
 			};
 			let newUser = await db.user.create(userData);

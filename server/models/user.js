@@ -60,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         });
         models.user.belongsToMany(models.course,{
-            through: 'paid_course',
+            through: models.paid_course,
             foreignKey: 'user_id'
         });
     };
